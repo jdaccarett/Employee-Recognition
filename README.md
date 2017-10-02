@@ -1,1 +1,1 @@
-# Eridanus-Employee-Recognition
+# Eridanus/Employee-Recognition
