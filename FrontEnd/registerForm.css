@@ -1,5 +1,9 @@
 /*element*/
 
+body{
+	background-color: #676f98;
+}
+
 button{
 	background-color: inherit;
 	border-bottom: 2px solid black;
@@ -9,7 +13,7 @@ button{
 }
 
 button:hover{
-	background-color: #ddd;
+	background-color: #f8eee7;
 }
 
 label{
@@ -19,15 +23,16 @@ label{
 
 
 
-/*class*/
+/*.class*/
 
 .container{
 width: 50%;
 padding: 15px 15px;
-margin-top: 10%;
+margin-top: 5%;
 margin-bottom: 10%;
-border: 10px solid #00ff00;
+border: 10px solid #004359;
 border-radius: 2em;
+background-color: #868bac;
 }
 
 .tab{
@@ -38,30 +43,46 @@ border-radius: 2em;
 .tabContent{
 	display: none;
 	padding-top: 25px;
+	background-color: ##868bac;
 }
 
 .data{
 	padding: 15px;
 }
 
-.form-check-label{
-	margin-left: 10px;
-}
-
 .btn{
-	background-color: #00ff00;
 	color: black;
 	border: none;
+	background-color: #a4a7c1;
 }
 
 .home-item{
-	color: black;
+	color: #0f1626;
+}
+
+.home{
+	margin-top: 10px;
+	margin-left: 20px;
 }
 
 
-/*id*/
+/*#id*/
 
 #title{
 	text-align: center;
-	padding-bottom: 15px;
+	margin-top: 5%;
+	padding-bottom: 5px;
+	color: #1a2930;
+}
+
+#brand{
+	margin: 0 auto;	
+	text-align: center;
+	padding:10px;
+	font-family: Rock Salt;
+	color: black;
+}
+
+#signin{
+	text-align: center;
 }
