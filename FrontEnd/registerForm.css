@@ -1,3 +1,67 @@
-body{
-    background-color: yellow;
+/*element*/
+
+button{
+	background-color: inherit;
+	border-bottom: 2px solid black;
+	padding: 15px 35px 15px 35px;
+	outline: none;
+	cursor: pointer;
+}
+
+button:hover{
+	background-color: #ddd;
+}
+
+label{
+	display: inline-block;
+}
+
+
+
+
+/*class*/
+
+.container{
+width: 50%;
+padding: 15px 15px;
+margin-top: 10%;
+margin-bottom: 10%;
+border: 10px solid #00ff00;
+border-radius: 2em;
+}
+
+.tab{
+	overflow: hidden;
+	margin-left: 10%;
+}
+
+.tabContent{
+	display: none;
+	padding-top: 25px;
+}
+
+.data{
+	padding: 15px;
+}
+
+.form-check-label{
+	margin-left: 10px;
+}
+
+.btn{
+	background-color: #00ff00;
+	color: black;
+	border: none;
+}
+
+.home-item{
+	color: black;
+}
+
+
+/*id*/
+
+#title{
+	text-align: center;
+	padding-bottom: 15px;
 }

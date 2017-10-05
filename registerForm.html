@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration Form</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">		<!-- Bootstrap CDN -->
+	
+	<link rel="stylesheet" type="text/css" href="refisterForm.css">     							<!-- Stylesheet Needs to be after boostrap -->
+</head>
+
+<body>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="refisterForm.js"></script>
+	<link rel="stylesheet" type="text/css" href="registerForm.css"> 
+
+	<h4>Registration Form</h4>
+
+	<div class="container">
+		<div class="tab">
+			<button class="tabLink" onclick="openForm(event, 'Admin Form')">New Admin</button>
+			<button class="tabLink" onclick="openForm(event, 'User Form')">New User</button>
+		</div>
+
+		<!-- Admin form -->
+		<div id="adminForm" class="tabContent">
+			<form action="" method="get">
+				<p>new Admin registration tab form</p>
+				<label>
+					Email: 
+					<input type="email" name="email" placeholder="Username">
+				</label> <br>
+				<label>
+					Password: 
+					<input type="password" name="password" placeholder="Password">
+				</label> <br>
+				<input type="submit">
+			</form>
+		</div>
+
+		<!-- User Form -->
+		<div id="userForm" class="tabContent">
+			<form action="" method="get">
+				<p>new user registration tab form</p>
+				<label>
+					Email: 
+					<input type="email" name="email" placeholder="Email">
+				</label> <br>
+				<label>
+					Password: 
+					<input type="password" name="password" placeholder="Password">
+				</label> <br>
+				<label>
+					Username: 
+					<input type="text" name="username" placeholder="Username">
+				</label> <br>
+				
+				<div>
+					<label for="East">East</label>
+					<input id="east" name="region" type="radio" value="east">
+					<label for="Central">Central</label>
+					<input id="central" name="region" type="radio" value="central">
+					<label for="West">West</label>
+					<input id="west" name="region" type="radio" value="west">
+				</div>
+				<input type="submit">
+
+			</form>
+		</div>
+
+	</div>
+	
+		
+	</form>
+
+</body>
+</html>
