@@ -1,9 +1,4 @@
 /*element*/
-body{
-	background-color: #676f98;
-}
-
-
 
 
 /*.class*/
@@ -14,6 +9,7 @@ body{
 .home{
 	margin-top: 10px;
 	margin-left: 20px;
+	background-color: #f8f9fa;
 }
 
 .container{
@@ -51,6 +47,7 @@ background-color: #868bac;
 	padding:10px;
 	font-family: Rock Salt;
 	color: black;
+	background-color: #f8f9fa;
 }
 
 #title{

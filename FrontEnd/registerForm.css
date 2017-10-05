@@ -1,9 +1,5 @@
 /*element*/
 
-body{
-	background-color: #676f98;
-}
-
 button{
 	background-color: inherit;
 	border-bottom: 2px solid black;
@@ -63,6 +59,7 @@ background-color: #868bac;
 .home{
 	margin-top: 10px;
 	margin-left: 20px;
+	background-color: #f8f9fa;
 }
 
 
@@ -81,6 +78,7 @@ background-color: #868bac;
 	padding:10px;
 	font-family: Rock Salt;
 	color: black;
+	background-color: #f8f9fa;
 }
 
 #signin{
