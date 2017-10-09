@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+var register = require('./routes/register');
 var index = require('./routes/index');
 var users = require('./routes/users');
 const fileUpload = require('express-fileupload');
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
 app.use('/', index);
+app.use('/register', register);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
