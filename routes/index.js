@@ -3,37 +3,45 @@ var router = express.Router();
 var expressValidator = require('express-validator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+// Latex to pdf requirements
+const latex = require('node-latex');
+const fs = require('fs');
+const { createReadStream, createWriteStream } = require('fs');
+// Hashing password requirements
 var bcrypt = require('bcrypt');
-
 const saltRounds = 10;
 const fileUpload = require('express-fileupload');
 
-/* GET Register page. */
+
+//*******************************************************//
+//                  LOGIN (POST/GET)                     //
+//*******************************************************//
+/* GET */
+router.get('/login', function(req, res, next) {
+  // Set a flash message by passing the key, followed by the value, to req.flash().
+  let error_message = req.flash('error')[0];
+  res.locals.error_message = error_message;
+  res.render('login', {title: 'Login'});
+});
+
+/* POST */
+router.post('/login', passport.authenticate(
+    'local', {
+    successRedirect: '/userhomepage',
+    failureRedirect: '/login',
+    failureFlash : true,
+}));
+
+//*******************************************************//
+//                  REGISTER (POST/GET)                  //
+//*******************************************************//
+/* GET */
 router.get('/register', function(req, res, next) {
   res.render('register', { title: 'Registration' });
 });
 
-/* GET Login page. */
-router.get('/login', function(req, res, next) {
-  // Set a flash message by passing the key, followed by the value, to req.flash().
-  let error_message = req.flash('error')[0];
-
-  res.locals.error_message = error_message;
-
-  res.render('login', {title: 'Login'});
-});
-
-/* GET Homepage page. */
-router.get('/userhomepage', function(req, res, next) {
-  console.log(req.user);
-  console.log(req.isAuthenticated());
-  res.render('userhomepage', { title: 'Homepage' });
-});
-
-/* POST request to register */
+/* POST */
 router.post('/register', function(req, res, next) { // Here we add our user to our database.
-
   // Using express-validator to validate our user input from our Registration form input
   req.checkBody('name', 'Username field cannot be empty.').notEmpty();
   req.checkBody('name', 'Username must be between 4-15 characters long.').len(3, 25);
@@ -43,18 +51,11 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
   req.checkBody("password", "Password must include one lowercase character, one uppercase character, a number, and a special character.").matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* )(?=.*[^a-zA-Z0-9]).{8,}$/, "i");
   req.checkBody('passwordMatch', 'Password must be between 8-100 characters long.').len(8, 100);
   req.checkBody('passwordMatch', 'Passwords do not match, please try again.').equals(req.body.password);
-  // req.checkBody('signature', 'image must be uploaded').notEmpty();
-
   const errors = req.validationErrors();
-
-
   // Check for Errors
   if(errors){
     console.log(`errors: ${JSON.stringify(errors)}`);
-    res.render('register', {
-      title: 'Registration Error',
-      errors: errors
-    });
+    res.render('register', { title: 'Registration Error', errors: errors});
   }
   // If no Errors store uploaded Image and add user info to Mysql
   else {
@@ -75,7 +76,6 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
     bcrypt.hash(password, saltRounds, function(err, hash){
           //check the uploaded image is the right format.
           if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ){
-
             //move the upload image to upload_images folder and save the directory which will be saved by storing in the users DB.
              file.mv('public/images/upload_images/'+file.name, function(err) {
                   if (err) return res.status(500).send(err);
@@ -84,50 +84,77 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
                       //if error throw alert us
                       if(error){
                         console.log(`errors: ${JSON.stringify(errors)}`);
-                        res.render('register', {
-                          title: 'Registration Error',
-                          errors: errors
-                        });
+                        res.render('register', { title: 'Registration Error', errors: errors});
                       }
-
                       //Insert Into User Table (Registration Form).
                       db.query("SELECT LAST_INSERT_ID() as user_id", function(error, results, fields){
                           //if error throw alert us
-                          if(error){
-                            throw error;
-                          }
+                          if(error) {throw error;}
+
                           else {
-
                             const user_id = results[0];
-
                             console.log(results[0]);
                             req.login(user_id, function(err){
                               res.redirect('/userhomepage');
                             });
                             //if data inserted succesfuly return us to Registrationpage.
                             res.render('register', { title: 'Registration Complete' });
-
                           }
                       });
-
-                 })
-
-             });
-
+                   })
+              });
           }
-
       });
-
     }
 });
 
-/* GET Login page. */
-router.post('/login', passport.authenticate(
-    'local', {
-    successRedirect: '/userhomepage',
-    failureRedirect: '/login',
-    failureFlash : true,
-}));
+//*******************************************************//
+//                  Homepage (POST/GET)                  //
+//*******************************************************//
+/* GET */
+router.get('/userhomepage', function(req, res, next) {
+  //HARD CODED VARIABLES FOR AWARD
+  var name = 'Sincerly, Juan Daccarett';
+  var image = 'logo';
+  var region = 'south';
+
+  var award = "\\documentclass{letter}\n\\usepackage{graphicx}\n\\graphicspath{ {/Users/juandaccarett/Desktop/emp/routes/images/} }\n\\signature{"+name+"}\n\\begin{document}\n\\begin{letter}{Eridanus:Web3 \\ Portland\\ Oregon\\ United States}\n\\opening{Dear Sir or Madam:}\n\nCongratulations! You have been selected as the ‘Month of the Employee.\n\n% Main text\n\\closing{.}\n\\encl{Region "+region+"}\n\\fromsig{\\includegraphics[scale=1]{"+image+"}}\n\n\\end{letter}\n\\end{document}\n";
+
+  latexToPdf('latex.tex', award, 'award.pdf');
+  res.render('userhomepage', { title: 'Homepage' });
+});
+
+//*******************************************************//
+//                  CreateAward (POST/GET)               //
+//*******************************************************//
+/* GET */
+router.get('/createAward', function(req, res, next) {
+  res.render('createAward', { title: 'createAward' });
+});
+
+/* POST */
+router.post('/createAward', function(req, res, next) {
+
+  req.checkBody('name', 'The email or name is invalid, please try again.').notEmpty();
+  req.checkBody('email', 'The email or name is invalid, please try again.').isEmail();
+  const errors = req.validationErrors();
+
+  // Check for Errors
+  if(errors){
+    console.log(`errors: ${JSON.stringify(errors)}`);
+    res.render('createAward', {
+      title: 'Create Award ',
+      errors: errors
+    });
+  }
+  // If no Errors store uploaded Image and add user info to Mysql
+  else {
+    const name = req.body.name;
+    const email = req.body.email;
+    const db = require('../db.js');
+  }
+});
+
 
 //to store user id in session
 passport.serializeUser(function(user_id, done) {
@@ -138,6 +165,19 @@ passport.deserializeUser(function(user_id, done) {
       done(null, user_id);
 });
 
-
+//*******************************************************//
+//                  Functions                            //
+//*******************************************************//
+//(Latex to Pdf document.)
+function latexToPdf(inputFilename, latexstring, outputFilename){
+    fs.writeFile(inputFilename, latexstring, function(err) {
+        if(err) {return console.log(err);}
+        console.log("The file was saved!");
+    });
+    const input = createReadStream(inputFilename);
+    const output = createWriteStream(outputFilename);
+    latex(input).pipe(output)
+    console.log("PDF created!");
+}
 
 module.exports = router;

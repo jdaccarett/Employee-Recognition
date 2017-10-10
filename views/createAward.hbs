@@ -1,0 +1,21 @@
+
+      {{> header }}
+      <!--TEMP FORM-->
+      <div class="container">
+
+            <h1>{{title}}</h1>
+
+            <div class="awardform">
+              <form method="post" action="/createAward" encType="multipart/form-data">
+                    <p class="error">{{errors.[0].msg}}</p>
+
+                    <p>Name of winner<input name="name" type="text" id="winnerName"></p>
+                    <p>Send Award to this Email<input name="email" type="text" id="winnerEmail"></p>
+
+
+                    <button class="sendbtn" type="submit" id="submit">Send</button>
+              </form>
+            </div>
+          </div>
+
+    </div>
