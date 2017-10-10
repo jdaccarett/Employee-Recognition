@@ -8,18 +8,11 @@
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
-<<<<<<< HEAD
-    "body-parser": "~1.15.2",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
-    "express": "~4.14.0",
-=======
     "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "debug": "^2.2.0",
     "express": "^4.14.1",
->>>>>>> 43b9c1f64e0290d4be33de5ec011d409b301dc63
     "express-fileupload": "^0.2.0",
     "express-mysql-session": "^1.2.2",
     "express-session": "^1.15.6",
@@ -27,14 +20,11 @@
     "hbs": "^4.0.1",
     "morgan": "^1.7.0",
     "mysql": "^2.15.0",
+    "node-latex": "^2.5.0",
     "nodemon": "^1.12.1",
-<<<<<<< HEAD
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "serve-favicon": "~2.3.0"
-=======
     "serve-favicon": "^2.3.2"
->>>>>>> 43b9c1f64e0290d4be33de5ec011d409b301dc63
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

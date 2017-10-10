@@ -18,7 +18,6 @@ var MySQLStore = require('express-mysql-session')(session);
 var bcrypt = require('bcrypt');
 var flash = require('connect-flash');
 
-
 var app = express();
 
 //grabs .env files to allow var to connect database.
