@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-<<<<<<< HEAD
 var expressValidator = require('express-validator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -137,12 +136,6 @@ passport.serializeUser(function(user_id, done) {
 //to read from session by user id
 passport.deserializeUser(function(user_id, done) {
       done(null, user_id);
-=======
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('home');
->>>>>>> 43b9c1f64e0290d4be33de5ec011d409b301dc63
 });
 
 
