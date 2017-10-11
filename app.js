@@ -100,6 +100,7 @@ function(req, email, password, done) { // callback with email and password from 
             if(response === true){
               console.log("here");
               // all is well, return successful user
+              const user_id = rows[0].user_id;
               return done(null, {user_id: rows[0].user_id});
             }
             else {

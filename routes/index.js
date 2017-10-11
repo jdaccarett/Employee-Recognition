@@ -61,8 +61,9 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
   else {
     //Variables from Registration Form
     //Check image upload if fails
-    if (!req.files)
-    return res.status(400).send('No files were uploaded.');
+    if (!req.files){
+        return res.status(400).send('No files were uploaded.');
+    }
     var file = req.files.signature;
     var img_name=file.name;
     const name = req.body.name;
@@ -77,8 +78,10 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
           //check the uploaded image is the right format.
           if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ){
             //move the upload image to upload_images folder and save the directory which will be saved by storing in the users DB.
-             file.mv('public/images/upload_images/'+file.name, function(err) {
-                  if (err) return res.status(500).send(err);
+             file.mv('public/images/upload_images/'+file.name, function(error) {
+                  if (error){
+                    return res.status(500).send(error);
+                  }
                   //Insert Into User Table (Registration Form).
                   db.query('INSERT INTO user (name, Region, email, password, img) VALUES (?,?,?,?,?)', [name, Region, email, hash, img_name], function(error, results, fields){
                       //if error throw alert us
@@ -87,21 +90,26 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
                         res.render('register', { title: 'Registration Error', errors: errors});
                       }
                       //Insert Into User Table (Registration Form).
-                      db.query("SELECT LAST_INSERT_ID() as user_id", function(error, results, fields){
+                      db.query("SELECT user_id from user WHERE email = ?", [email] , function(error, results, fields){
                           //if error throw alert us
-                          if(error) {throw error;}
+                          if(error) {
+                            console.log("error: " + error);
+                            throw error;
+                          }
 
                           else {
                             const user_id = results[0];
                             console.log(results[0]);
-                            req.login(user_id, function(err){
-                              res.redirect('/userhomepage');
+
+                            req.login(user_id, function(error){
+                              console.log(error)
+                              res.render('register');
                             });
                             //if data inserted succesfuly return us to Registrationpage.
                             res.render('register', { title: 'Registration Complete' });
                           }
                       });
-                   })
+                   });
               });
           }
       });
@@ -113,14 +121,7 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
 //*******************************************************//
 /* GET */
 router.get('/userhomepage', function(req, res, next) {
-  //HARD CODED VARIABLES FOR AWARD
-  var name = 'Sincerly, Juan Daccarett';
-  var image = 'logo';
-  var region = 'south';
 
-  var award = "\\documentclass{letter}\n\\usepackage{graphicx}\n\\graphicspath{ {/Users/juandaccarett/Desktop/emp/routes/images/} }\n\\signature{"+name+"}\n\\begin{document}\n\\begin{letter}{Eridanus:Web3 \\ Portland\\ Oregon\\ United States}\n\\opening{Dear Sir or Madam:}\n\nCongratulations! You have been selected as the ‘Month of the Employee.\n\n% Main text\n\\closing{.}\n\\encl{Region "+region+"}\n\\fromsig{\\includegraphics[scale=1]{"+image+"}}\n\n\\end{letter}\n\\end{document}\n";
-
-  latexToPdf('latex.tex', award, 'award.pdf');
   res.render('userhomepage', { title: 'Homepage' });
 });
 
@@ -129,6 +130,7 @@ router.get('/userhomepage', function(req, res, next) {
 //*******************************************************//
 /* GET */
 router.get('/createAward', function(req, res, next) {
+
   res.render('createAward', { title: 'createAward' });
 });
 
@@ -149,9 +151,39 @@ router.post('/createAward', function(req, res, next) {
   }
   // If no Errors store uploaded Image and add user info to Mysql
   else {
-    const name = req.body.name;
-    const email = req.body.email;
+    const employee_name = req.body.name;
+    const employee_email = req.body.email;
+    const creator_id = req.user.user_id;
+
+    const award_type = 'Employee of the month';
     const db = require('../db.js');
+
+    //Insert Into User Table (Registration Form).
+    //Insert Into User Table (Registration Form).
+    db.query("SELECT Region, img FROM user where user_id = ?", [creator_id], function(error, results, fields){
+        //if error throw alert us
+        if(error) {throw error;}
+
+        else {
+          const Region = JSON.stringify(results[0].Region).replace(/['"]+/g, '');
+          var image = JSON.stringify(results[0].img);
+
+          db.query('INSERT INTO `awards`(`award_type`, `employee_name`, `employee_email`, `creator_id`) VALUES (?,?,?,?)', [award_type, employee_name, employee_email, creator_id], function(error, results, fields){
+              //if error throw alert us
+              if(error) {throw error;}
+              else {
+                //variables for award
+                image = image.slice(0, image.lastIndexOf('.') - image.length).replace(/['"]+/g, '');
+                var award = "\\documentclass{letter}\n\\usepackage{graphicx}\n\\graphicspath{ {/Users/juandaccarett/Desktop/Last_Semester/Capstone_Project/emp/public/images/upload_images/} }\n\\signature{"+employee_name+"}\n\\begin{document}\n\\begin{letter}{Eridanus:Web3 \\ Portland\\ Oregon\\ United States}\n\\opening{Dear Sir or Madam:}\n\nCongratulations! You have been selected as the ‘Month of the Employee.\n\n% Main text\n\\closing{.}\n\\encl{Region "+Region+"}\n\\fromsig{\\includegraphics[scale=0.4]{"+image+"}}\n\n\\end{letter}\n\\end{document}\n";
+                latexToPdf('latex.tex', award, 'award.pdf');
+                //if data inserted succesfuly return us to userhomepage.
+                res.render('userhomepage', { title: 'Award Created' });
+              }
+          });
+
+        }
+    });
+
   }
 });
 
@@ -171,7 +203,9 @@ passport.deserializeUser(function(user_id, done) {
 //(Latex to Pdf document.)
 function latexToPdf(inputFilename, latexstring, outputFilename){
     fs.writeFile(inputFilename, latexstring, function(err) {
-        if(err) {return console.log(err);}
+        if(err) {
+          return console.log(err);
+        }
         console.log("The file was saved!");
     });
     const input = createReadStream(inputFilename);
