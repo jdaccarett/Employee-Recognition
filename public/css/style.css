@@ -9,8 +9,114 @@ html{
   margin: 0px;
 }
 
+/* HOME PAGE START */
+.container-fluid{
+    background-image: url(../images/bkg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+.navicons {
+    position: absolute;
+    width: inherit;
+    height: 100%;
+}
+
+.navicons img {
+    position: relative;
+    width: 80%;
+    display: block;
+}
+
+.navicons button {
+    right: 14px;
+    position: absolute;
+    border-style: none;
+    height: 60px;
+    width: 40%;
+    background-color: mediumturquoise;
+    color: whitesmoke;
+    font-family: sans-serif;
+    font-weight: 300;
+    letter-spacing: 3px;
+    -webkit-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+}
+
+.container {
+    width: 100%;
+    margin-top: 3%;
+}
+
+.col3 {
+    display: inline-block;
+    width: 24%;
+    height: 70px;
+}
+
+.main {
+    height: 30%;
+}
+
+.cta {
+    margin: 0 auto;
+    text-align: center;
+    background: #667db6;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(left, #667db6, #0082c8, #0082c8, #667db6);
+    background: -o-linear-gradient(left, #667db6, #0082c8, #0082c8, #667db6);
+    background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);
+    /* Chrome 10-25, Safari 5.1-6 */
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    height: 100%;
+    width: 50%;
+    max-width: 700px;
+    border-radius: 7px;
+    -webkit-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+}
+
+.cta h3 {
+    padding-top: 10%;
+    color: whitesmoke;
+    font-family: sans-serif;
+    letter-spacing: 2px;
+    font-weight: 200;
+    font-size: 3rem;
+}
+
+.cta h5 {
+    margin-top: 5%;
+    color: whitesmoke;
+    font-family: sans-serif;
+    letter-spacing: 2px;
+    font-weight: 100;
+    font-size: 14px;
+}
+
+.cta button {
+    margin-top: 10%;
+    border-style: none;
+    height: 60px;
+    width: 40%;
+    background-color: mediumpurple;
+    color: whitesmoke;
+    font-family: sans-serif;
+    font-weight: 300;
+    letter-spacing: 3px;
+    -webkit-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+}
+/* HOME PAGE ENDS */
+
+
 /*MAIN CONTAINER*/
-.container{
+.container1{
     position: relative;
     height: 100vh;
     width: 100vw;
