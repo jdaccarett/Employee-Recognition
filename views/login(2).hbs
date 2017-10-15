@@ -1,0 +1,29 @@
+
+      {{> header }}
+      <!--TEMP FORM-->
+      <div class="container1">
+
+          {{> leftcontainer }}
+
+          <div class="rightcontainer">
+
+            <h1>{{title}}</h1>
+
+            <div class="formdiv">
+              <form method="post" id='uploadForm' action="/login" encType="multipart/form-data">
+                <div class="login">
+                    <p class="error">{{error_message}}</p>
+                    <p>Email<input name="email" type="text" id="inputEmail"></p>
+
+                    <p>Password<input name="password" type="password" id="inputPassword"></p>
+
+                    <button class="loginbtn" type="submit" id="submit">Sign in</button>
+                </div>
+                <div class="register">
+                  <p>If you dont have an account <a href="/register">Register</a></p>
+                </div>
+              </form>
+            </div>
+          </div>
+
+    </div>
