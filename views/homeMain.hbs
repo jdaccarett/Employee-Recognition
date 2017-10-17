@@ -1,33 +1,93 @@
 <!DOCTYPE html>
 <html>
 
-{{> header }}
-
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="css/homepage.css">
 
 <body>
-    <div class="container-fluid">
-        <div class="container navbar">
-            <div class="col3">
-                <div class="navicons"><img src="images/logo.png" alt=""></div>
+    <div class="navbar">
+        <div class="cta">
+            <div class="loginbtn">
+                <button id="logbtn">Login</button>
             </div>
-            <div class="col3"></div>
-            <div class="col3"></div>
-            <div class="col3">
-                <div class="navicons"><button onclick="window.location.href='/login';">Login</button></div>
-            </div>
-        </div>
-
-        <div class="container main">
-            <div class="cta">
-                <h3>Employee Recognition</h3>
-                <h5>Give credit where credit is due in three easy steps</h5>
-                <button onclick="window.location.href='/register';">Register Today</button>
+            <div class="registerbtn">
+                <button id="regbtn">Register</button>
             </div>
         </div>
     </div>
+    <div class="title">
+        <h4>Welcome to</h4>
+        <h6>Employee Recognition</h6> </div>
+    <div class="mainCont">
+        <!--LOGIN-->
+        <div id="login">
+            <form method="post" id='uploadForm' action="/login" encType="multipart/form-data">
+                <p class="error">{{error_message}}</p>
+                <p>Email
+                    <input name="email" type="text" id="inputEmail"> </p>
+                <p>Password
+                    <input name="password" type="password" id="inputPassword"> </p>
+                <button class="loginbtn" type="submit" id="submit">Sign in</button>
+            </form>
+        </div>
+        <!--Register-->
+        <div id="register">
+                <!-- REGISTRATION FORM -->
+                <form method="post" action="/register" id='uploadForm' encType="multipart/form-data">
+                    <!--USER NAME-->
+                    <p>Name
+                    <input type="text" name="name" class="form-control"> </p>
+                    <!--EMAIL-->
+                    <p>Email
+                     <input type="email" class="form-control" name="email"> </p>
 
-    </div>
+                    <!--REGION-->
+                    <p>Region
+                    <input type="text" class="form-control" name="Region"> </p>
 
+                    <!--PASSWORD-->
+                    <p>Password
+                    <input type="password" name="password" class="form-control"></p>
+
+                    <!--RETYPE PASSWORD-->
+                    <p>Re-Enter Password
+                    <input type="password" name="passwordMatch" class="form-control" id="exampleInputPassword1"> </p>
+
+                    <!--PASSWORD-->
+                    <p>Img Upload
+                    <input style="border: none;" type="file" name="signature" class="form-control"></p>
+                    <!--Button-->
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+
+    <script>
+        var loginForm = document.getElementsByClassName('login');
+        var login = document.getElementById('login');
+        var register = document.getElementById('register');
+        var bool = true;
+
+        document.getElementById("regbtn").addEventListener("click", function(){
+
+            if (bool) {
+                login.setAttribute("style", "margin-left: 100%;");
+                register.setAttribute("style", "margin-top: 5%;");
+                bool = false;
+            }
+        });
+
+        document.getElementById("logbtn").addEventListener("click", function(){
+
+
+            if (!bool) {
+                login.setAttribute("style", "margin-left: 0%;");
+                register.setAttribute("style", "margin-top: 100%;");
+                bool = true;
+            }
+        });
+    </script>
 </body>
-
 </html>

@@ -12,13 +12,13 @@ var bcrypt = require('bcrypt');
 const saltRounds = 10;
 const fileUpload = require('express-fileupload');
 
-
 //*******************************************************//
 //                  HOME (GET)                     //
 //*******************************************************//
 /* GET */
 router.get('/', function(req, res, next) {
-
+  let error_message = req.flash('error')[0];
+  res.locals.error_message = error_message;
   res.render('homeMain');
 });
 
@@ -26,18 +26,18 @@ router.get('/', function(req, res, next) {
 //                  LOGIN (POST/GET)                     //
 //*******************************************************//
 /* GET */
-router.get('/login', function(req, res, next) {
-  // Set a flash message by passing the key, followed by the value, to req.flash().
-  let error_message = req.flash('error')[0];
-  res.locals.error_message = error_message;
-  res.render('login', {title: 'Login'});
-});
+// router.get('/login', function(req, res, next) {
+//   // Set a flash message by passing the key, followed by the value, to req.flash().
+//   let error_message = req.flash('error')[0];
+//   res.locals.error_message = error_message;
+//   res.render('login', {title: 'Login'});
+// });
 
 /* POST */
 router.post('/login', passport.authenticate(
     'local', {
     successRedirect: '/userhomepage',
-    failureRedirect: '/login',
+    failureRedirect: '/',
     failureFlash : true,
 }));
 
@@ -45,9 +45,9 @@ router.post('/login', passport.authenticate(
 //                  REGISTER (POST/GET)                  //
 //*******************************************************//
 /* GET */
-router.get('/register', function(req, res, next) {
-  res.render('register', { title: 'Registration' });
-});
+// router.get('/register', function(req, res, next) {
+//   res.render('register', { title: 'Registration' });
+// });
 
 /* POST */
 router.post('/register', function(req, res, next) { // Here we add our user to our database.
@@ -64,7 +64,7 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
   // Check for Errors
   if(errors){
     console.log(`errors: ${JSON.stringify(errors)}`);
-    res.render('register', { title: 'Registration Error', errors: errors});
+    res.render('homeMain', { title: 'Registration Error', errors: errors});
   }
   // If no Errors store uploaded Image and add user info to Mysql
   else {
@@ -96,7 +96,7 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
                       //if error throw alert us
                       if(error){
                         console.log(`errors: ${JSON.stringify(errors)}`);
-                        res.render('register', { title: 'Registration Error', errors: errors});
+                        res.render('homeMain', { title: 'Registration Error', errors: errors});
                       }
                       //Insert Into User Table (Registration Form).
                       db.query("SELECT user_id from user WHERE email = ?", [email] , function(error, results, fields){
@@ -112,10 +112,10 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
 
                             req.login(user_id, function(error){
                               console.log(error)
-                              res.render('register');
+                              //res.render('homeMain', { title: 'Registration Complete' });
                             });
                             //if data inserted succesfuly return us to Registrationpage.
-                            res.render('register', { title: 'Registration Complete' });
+                            res.render('homeMain', { title: 'Registration Complete' });
                           }
                       });
                    });
@@ -186,7 +186,7 @@ router.post('/createAward', function(req, res, next) {
                 var award = "\\documentclass{letter}\n\\usepackage{graphicx}\n\\graphicspath{ {/Users/juandaccarett/Desktop/Last_Semester/Capstone_Project/emp/public/images/upload_images/} }\n\\signature{"+employee_name+"}\n\\begin{document}\n\\begin{letter}{Eridanus:Web3 \\ Portland\\ Oregon\\ United States}\n\\opening{Dear Sir or Madam:}\n\nCongratulations! You have been selected as the ‘Month of the Employee.\n\n% Main text\n\\closing{.}\n\\encl{Region "+Region+"}\n\\fromsig{\\includegraphics[scale=0.4]{"+image+"}}\n\n\\end{letter}\n\\end{document}\n";
                 latexToPdf('latex.tex', award, 'award.pdf');
                 //if data inserted succesfuly return us to userhomepage.
-                res.render('userhomepage', { title: 'Award Created' });
+                res.render('createAward', { title: 'Award Created' });
               }
           });
 
