@@ -20,15 +20,17 @@ var flash = require('connect-flash');
 
 var app = express();
 
-//grabs .env files to allow var to connect database.
-require('dotenv').config();
+if (process.env.NODE_ENV === "development"){
+  //grabs .env files to allow var to connect database.
+  require('dotenv').config();
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 //set port
-var port = process.env.PORT || 8080;
+//var port = process.env.PORT || 8080;
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -155,9 +157,9 @@ hbs.registerHelper('json', function(context) {
     return JSON.stringify(context, null, 2);
 });
 
-app.listen(port, function() {
-  console.log();
-  console.log("go to http://localhost:" + port);
-});
+// app.listen(port, function() {
+//   console.log();
+//   console.log("go to http://localhost:" + port);
+// });
 
 module.exports = app;
