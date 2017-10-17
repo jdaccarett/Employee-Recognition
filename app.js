@@ -20,8 +20,10 @@ var flash = require('connect-flash');
 
 var app = express();
 
-//grabs .env files to allow var to connect database.
-require('dotenv').config();
+if (process.env.NODE_ENV === "development"){
+  //grabs .env files to allow var to connect database.
+  require('dotenv').config();
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
