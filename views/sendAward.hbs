@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="stylesheet" href="css/homepage.css">
+
+<body>
+    <div class="title">
+        <h4>{{title}}</h4>
+        <h6>Send Award</h6> </div>
+    <div class="mainCont">
+        <!--LOGIN-->
+        <div id="sendAward">
+
+          <embed src="{{awardPath}}" name="{{awardPath}}"/>
+
+          <form  method="post" action="/sendAward">
+            <!--Button-->
+             <input type="text" name="email" value="{{email}}" style="visibility: hidden;">
+             <input type="text" name="path" value="{{awardPath}}" style="visibility: hidden;">
+
+
+            <button type="submit" class="btn btn-primary">Email Award</button>
+          </form>
+        </div>
+     </div>
+</body>
+<script type="text/javascript">
+
+  //Send as ajax to sendAward
+  var awardPath = document.getElementsByTagName('embed')[0].name;
+
+</script>
+</html>

@@ -21,6 +21,8 @@
     "morgan": "^1.7.0",
     "mysql": "^2.15.0",
     "node-latex": "^2.5.0",
+    "nodemailer": "^4.2.0",
+    "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^1.12.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",

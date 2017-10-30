@@ -1,0 +1,23 @@
+{{> header }}
+<body>
+<!--TEMP FORM-->
+<div class="containerHome">
+    <h1 class="homeTitle">{{title}}</h1>
+
+    <ul class="Employee_list">
+      {{#each packet}}
+        <li>
+          <div class="Employee">
+            {{#each this}}
+              {{this }}
+            {{/each}}
+          <div class="Remove_Award">
+            <img src="" alt="">
+          </div>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+
+</div>
+</body>

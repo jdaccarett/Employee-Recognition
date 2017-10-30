@@ -1,21 +1,28 @@
+      <!DOCTYPE html>
+      <html>
 
-      {{> header }}
-      <!--TEMP FORM-->
-      <div class="container1">
+      <head>
+          <meta charset="UTF-8">
+          <title>title</title>
+          <link rel="stylesheet" href="css/homepage.css">
 
-            <h1>{{title}}</h1>
+      <body>
+          <div class="title">
+              <h4>{{title}}</h4>
+              <h6>createAward</h6> </div>
+          <div class="mainCont">
+              <!--LOGIN-->
+              <div id="createAward">
+                  <form method="post" id='uploadForm' encType="multipart/form-data">
+                      <p class="error">{{errors.[0].msg}}</p>
+                      <p>Name of winner
+                        <input name="name" type="text" id="winnerName"></p>
+                      <p>Send Award to this Email
+                        <input name="email" type="text" id="winnerEmail"></p>
 
-            <div class="awardform">
-              <form method="post" action="/createAward" encType="multipart/form-data">
-                    <p class="error">{{errors.[0].msg}}</p>
-
-                    <p>Name of winner<input name="name" type="text" id="winnerName"></p>
-                    <p>Send Award to this Email<input name="email" type="text" id="winnerEmail"></p>
-                    <button class="sendbtn" type="submit" id="submit">Send</button>
-
-                    <embed src="images/award.pdf">
-              </form>
-            </div>
-          </div>
-
-    </div>
+                      <button class="loginbtn" type="submit" id="submit">Create</button>
+                  </form>
+              </div>
+           </div>
+      </body>
+      </html>

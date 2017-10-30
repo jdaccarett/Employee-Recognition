@@ -143,6 +143,12 @@ body{
 
 }
 
+#login form .error{
+    color: red;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
 #login form button{
 
     border-style: none;
@@ -209,4 +215,100 @@ body{
     display: block;
     margin: 0 auto;
 
+}
+
+#register form .error{
+    color: white;
+    font-family: sans-serif;
+    font-weight: 100;
+    font-size: 12px;
+}
+
+/*createAward*/
+#createAward {
+    background-color: turquoise;
+    border-radius: 5px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    height: 45%;
+    width: 400px;
+    transform: translate(-50%, -50%);
+    -webkit-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+}
+
+
+#createAward  form{
+    padding: 17px;
+}
+
+#createAward  form input{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    height: 30px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+#createAward  form p{
+    color: white;
+    font-family: sans-serif;
+    font-weight: 100;
+
+}
+
+#createAward  form .error{
+    color: red;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+#createAward form button{
+
+    border-style: none;
+    width: 60%;
+    height: 50px;
+    border-radius: 30px;
+    background-color: palevioletred;
+    color: white;
+    font-size: 1rem;
+    display: block;
+    margin: 0 auto;
+
+}
+
+/*SendAward*/
+#sendAward {
+    border-radius: 5px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    height: 60%;
+    width: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+}
+
+#sendAward embed{
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+#sendAward button{
+  border-style: none;
+  width: 60%;
+  height: 50px;
+  border-radius: 30px;
+  background-color: palevioletred;
+  color: white;
+  font-size: 1rem;
+  display: block;
+  margin: 0 auto;
 }

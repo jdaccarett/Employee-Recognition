@@ -9,6 +9,9 @@ var register = require('./routes/register');
 var index = require('./routes/index');
 var users = require('./routes/users');
 const fileUpload = require('express-fileupload');
+const nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+
 
 // Authentication Packages
 var session = require('express-session');
@@ -20,17 +23,15 @@ var flash = require('connect-flash');
 
 var app = express();
 
-if (process.env.NODE_ENV === "development"){
-  //grabs .env files to allow var to connect database.
-  require('dotenv').config();
-}
+// //grabs .env files to allow var to connect database.
+// require('dotenv').config();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 //set port
-//var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8080;
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -45,10 +46,10 @@ app.use(flash());
 
 
 var options = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database : process.env.DB_NAME
+  host: 'us-cdbr-iron-east-03.cleardb.net',
+  user: 'b8391048aec836',
+  password: '1518f015',
+  database: 'heroku_956de627ca379e5'
 };
 
 var sessionStore = new MySQLStore(options);
@@ -85,7 +86,7 @@ passport.use(new LocalStrategy({
 },
 function(req, email, password, done) { // callback with email and password from our form
      const db = require('./db');
-     db.query("SELECT user_id, password FROM `user` WHERE `email` = '" + email + "'",function(err,rows){
+     db.pool.query("SELECT user_id, password FROM `user` WHERE `email` = '" + email + "'",function(err,rows){
         if (err){
           console.log("errror");
           done(err);
@@ -113,7 +114,6 @@ function(req, email, password, done) { // callback with email and password from 
     });
 
 }));
-
 
 
 // catch 404 and forward to error handler
@@ -157,9 +157,8 @@ hbs.registerHelper('json', function(context) {
     return JSON.stringify(context, null, 2);
 });
 
-// app.listen(port, function() {
-//   console.log();
-//   console.log("go to http://localhost:" + port);
-// });
+app.listen(process.env.PORT || port, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
 
 module.exports = app;

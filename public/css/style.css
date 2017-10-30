@@ -304,9 +304,9 @@ h1{
   position: relative;
   height: 100vh;
   width: 100vw;
-  background: #06beb6;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #48b1bf, #06beb6);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #48b1bf, #06beb6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #5C258D;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4389A2, #5C258D);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #4389A2, #5C258D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
 
@@ -331,11 +331,11 @@ h1{
 }
 
 .createAward{
-  background-color: coral;
+  background-color: dodgerblue;
   float: left;
 }
 .editAward{
-  background-color: coral;
+  background-color: mediumturquoise;
   float: right;
 }
 
@@ -347,19 +347,43 @@ h1{
   font-weight: lighter;
   border-style: none;
   border-radius: 20px;
-  -webkit-box-shadow: 2px 2px 29px 1px rgba(128,124,128,.6);
-  -moz-box-shadow: 2px 2px 29px 1px rgba(128,124,128,.6);
-  box-shadow: 2px 2px 29px 1px rgba(128,124,128,.6);
+  -webkit-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
   display: inline-block;
   height: 100%;
   width: 45%;
 }
-
-/*  Create Award  */
-.awardform{
-  height: 25%;
-  width:50%;
+/* VIEW AWARDS */
+.Employee_list{
+  width: 40%;
   right: 0;
   left: 0;
   margin: 20% auto;
+  position: absolute;
+  list-style: none;
+}
+
+.Employee_list li{
+  text-align: center;
+  margin-bottom: 5%;
+  display: inline-block;
+  width: 100%;
+  -webkit-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+  box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+}
+
+.Employee{
+  border-radius: 3px;
+  font-size: 15px;
+  padding-top: 15px;
+  height: 50px;
+  background: whitesmoke;
+  font-family: sans-serif;
+  font-weight: 400;
+  background: #06beb6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #48b1bf, #06beb6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #48b1bf, #06beb6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }

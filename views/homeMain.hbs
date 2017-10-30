@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="title">
-        <h4>Welcome to</h4>
+        <h4>{{title}}</h4>
         <h6>Employee Recognition</h6> </div>
     <div class="mainCont">
         <!--LOGIN-->
@@ -37,6 +37,12 @@
                 <!-- REGISTRATION FORM -->
                 <form method="post" action="/register" id='uploadForm' encType="multipart/form-data">
                     <!--USER NAME-->
+                    <div class="error">
+                      {{#each errors}}
+                        <li>{{this.msg}}</li>
+                      {{/each}}
+                    </div>
+
                     <p>Name
                     <input type="text" name="name" class="form-control"> </p>
                     <!--EMAIL-->
