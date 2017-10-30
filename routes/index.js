@@ -178,20 +178,14 @@ router.post('/createAward', function(req, res, next) {
               //if error throw alert us
               if(error) {throw error;}
               else {
-                  db.pool.query('SELECT award_id FROM awards WHERE award_id = LAST_INSERT_ID()',function(error, results, fields){
-                      //if error throw alert us
-                      if(error) {throw error;}
-                      else {
-                        console.log(results[0].award_id);
-                        var award_path = results[0].award_id + '.pdf'
-                        //variables for award
-                        image = image.slice(0, image.lastIndexOf('.') - image.length).replace(/['"]+/g, '');
-                        var award = "\\documentclass{letter}\n\\usepackage{graphicx}\n\\graphicspath{ {/Users/juandaccarett/Desktop/Last_Semester/Capstone_Project/emp/public/images/upload_images/} }\n\\signature{"+employee_name+"}\n\\begin{document}\n\\begin{letter}{Eridanus:Web3 \\ Portland\\ Oregon\\ United States}\n\\opening{Dear Sir or Madam:}\n\nCongratulations! You have been selected as the ‘Month of the Employee.\n\n% Main text\n\\closing{.}\n\\encl{Region "+Region+"}\n\\fromsig{\\includegraphics[scale=0.4]{"+image+"}}\n\n\\end{letter}\n\\end{document}\n";
-                        // Creates award and saves them to awardsCreated folder with the name of the award_id
-                        latexToPdf('latex.tex', award, award_path);
-                        res.render('sendAward', { title: "Review Award" ,awardPath: 'awardsCreated/'+award_path, email: employee_email});
-                      }
-                  });
+                  var award_path = results.insertId+ '.pdf'
+                  //variables for award
+                  image = image.slice(0, image.lastIndexOf('.') - image.length).replace(/['"]+/g, '');
+                  var award = "\\documentclass{letter}\n\\usepackage{graphicx}\n\\graphicspath{ {/Users/juandaccarett/Desktop/Last_Semester/Capstone_Project/emp/public/images/upload_images/} }\n\\signature{"+employee_name+"}\n\\begin{document}\n\\begin{letter}{Eridanus:Web3 \\ Portland\\ Oregon\\ United States}\n\\opening{Dear Sir or Madam:}\n\nCongratulations! You have been selected as the ‘Month of the Employee.\n\n% Main text\n\\closing{.}\n\\encl{Region "+Region+"}\n\\fromsig{\\includegraphics[scale=0.4]{"+image+"}}\n\n\\end{letter}\n\\end{document}\n";
+                  // Creates award and saves them to awardsCreated folder with the name of the award_id
+                  latexToPdf('latex.tex', award, award_path);
+                  res.render('sendAward', { title: "Review Award" ,awardPath: 'awardsCreated/'+award_path, email: employee_email});
+
               }
           });
        }
