@@ -136,7 +136,6 @@ router.get('/userhomepage', function(req, res, next) {
 //*******************************************************//
 /* GET */
 router.get('/createAward', function(req, res, next) {
-  var loc = window.location.pathname;
   console.log(loc);
   res.render('createAward');
 });
