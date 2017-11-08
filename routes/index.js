@@ -300,7 +300,7 @@ function latexToPdf(inputFilename, latexstring, outputFilename){
         console.log("The file was saved!");
     });
     const input = createReadStream(inputFilename);
-    const output = createWriteStream("/public/awardsCreated/"+outputFilename);
+    const output = createWriteStream("public/awardsCreated/"+outputFilename);
     latex(input).pipe(output)
     console.log("PDF created!");
 }
