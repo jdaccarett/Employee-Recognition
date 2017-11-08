@@ -182,7 +182,43 @@ router.post('/createAward', function(req, res, next) {
                   image = image.slice(0, image.lastIndexOf('.') - image.length).replace(/['"]+/g, '');
                   var award = "\\documentclass{letter}\n\\usepackage{graphicx}\n\\graphicspath{{/Users/juandaccarett/Desktop/Last_Semester/Capstone_Project/emp/public/images/upload_images/}}\n\\signature{"+employee_name+"}\n\\begin{document}\n\\begin{letter}{Eridanus:Web3 \\ Portland\\ Oregon\\ United States}\n\\opening{Dear Sir or Madam:}\n\nCongratulations! You have been selected as the ‘Month of the Employee.\n\n% Main text\n\\closing{.}\n\\encl{Region "+Region+"}\n\\fromsig{\\includegraphics[scale=0.4]{"+image+"}}\n\n\\end{letter}\n\\end{document}\n";
                   // Creates award and saves them to awardsCreated folder with the name of the award_id
-                  latexToPdf('latex.tex', award, award_path);
+
+                  fs.writeFile(inputFilename, latexstring, function(err) {
+                      if(err) {
+                        return console.log(err);
+                      }
+                      console.log("The file was saved!");
+                  });
+                  const input = createReadStream(inputFilename);
+                  const output = createWriteStream("public/awardsCreated/"+outputFilename);
+                  latex(input).pipe(output)
+                  console.log("PDF created!");
+
+                  // function latexToPdf(inputFilename, latexstring, outputFilename){
+                  //     fs.writeFile(inputFilename, latexstring, function(err) {
+                  //         if(err) {
+                  //           return console.log(err);
+                  //         }
+                  //         console.log("The file was saved!");
+                  //     });
+                  //     const input = createReadStream(inputFilename);
+                  //     const output = createWriteStream("public/awardsCreated/"+outputFilename);
+                  //     latex(input).pipe(output)
+                  //     console.log("PDF created!");
+                  // }
+
+                      fs.writeFile('latex.tex', award, function(err) {
+                          if(err) {
+                            return console.log(err);
+                          }
+                          console.log("The file was saved!");
+                      });
+                      const input = createReadStream('latex.tex');
+                      const output = createWriteStream("public/awardsCreated/"+award_path);
+                      latex(input).pipe(output)
+                      console.log("PDF created!");
+
+                  // latexToPdf('latex.tex', award, award_path);
                   res.render('sendAward', { title: "Review Award" ,awardPath: 'awardsCreated/'+award_path, email: employee_email});
 
               }
@@ -292,17 +328,17 @@ passport.deserializeUser(function(user_id, done) {
 //                  Functions                            //
 //*******************************************************//
 //(Latex to Pdf document.)
-function latexToPdf(inputFilename, latexstring, outputFilename){
-    fs.writeFile(inputFilename, latexstring, function(err) {
-        if(err) {
-          return console.log(err);
-        }
-        console.log("The file was saved!");
-    });
-    const input = createReadStream(inputFilename);
-    const output = createWriteStream("public/awardsCreated/"+outputFilename);
-    latex(input).pipe(output)
-    console.log("PDF created!");
-}
+// function latexToPdf(inputFilename, latexstring, outputFilename){
+//     fs.writeFile(inputFilename, latexstring, function(err) {
+//         if(err) {
+//           return console.log(err);
+//         }
+//         console.log("The file was saved!");
+//     });
+//     const input = createReadStream(inputFilename);
+//     const output = createWriteStream("public/awardsCreated/"+outputFilename);
+//     latex(input).pipe(output)
+//     console.log("PDF created!");
+// }
 
 module.exports = router;
