@@ -136,7 +136,8 @@ router.get('/userhomepage', function(req, res, next) {
 //*******************************************************//
 /* GET */
 router.get('/createAward', function(req, res, next) {
-  console.log(loc);
+  var dir = loc.substring(0, loc.lastIndexOf('/'));
+  console.log(dir);
   res.render('createAward');
 });
 
