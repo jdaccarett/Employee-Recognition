@@ -14,6 +14,9 @@ const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 
+var PDFLatex = require('pdflatex');
+
+
 
 
 //*******************************************************//
