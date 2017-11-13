@@ -25,8 +25,6 @@ To run the unit tests run `mocha tests`
 ## Authors
 
 * **Juan**                  -  **jdaccarett**
-* **Natalia**               -  **naquech**
-* **Gerlin Guillaume**      -  **guillaug-osu**
 
 ## License
 
