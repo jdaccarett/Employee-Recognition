@@ -13,20 +13,16 @@ Then install all packages with `sudo npm install`
 Run the app with `sudo npm start`
 Navigate to `http://localhost:8080`
 
+URL to deployed app on heroku: https://nameless-tundra-14560.herokuapp.com/
+
 ## Built With
 
 * NodeJS
 * ExpressJS
 
-## Running the tests
-
-To run the unit tests run `mocha tests`
-
 ## Authors
 
 * **Juan**                  -  **jdaccarett**
-* **Natalia**               -  **naquech**
-* **Gerlin Guillaume**      -  **guillaug-osu**
 
 ## License
 
