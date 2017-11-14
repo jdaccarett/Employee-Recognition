@@ -1,0 +1,66 @@
+{{> header }}
+
+<body>
+    <!--TEMP FORM-->
+    <div class="containerHome"> {{> navbar }}
+        <h1 class="homeTitle">{{title}}</h1>
+        <div class="wrapper">
+            <canvas id="signature-pad" class="signature-pad" width=400 height=200></canvas>
+            <button id="save">Save</button>
+            <button id="clear">Clear</button>
+        </div>
+        <div> </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+    <script>
+        var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
+            backgroundColor: 'rgba(255, 255, 255, 0)'
+            , penColor: 'rgb(0, 0, 0)'
+        });
+        var saveButton = document.getElementById('save');
+        var cancelButton = document.getElementById('clear');
+        // One could simply use Canvas#toBlob method instead, but it's just to show
+        // that it can be done using result of SignaturePad#toDataURL.
+        function dataURLToBlob(dataURL) {
+            // Code taken from https://github.com/ebidel/filer.js
+            var parts = dataURL.split(';base64,');
+            var contentType = parts[0].split(":")[1];
+            var raw = window.atob(parts[1]);
+            var rawLength = raw.length;
+            var uInt8Array = new Uint8Array(rawLength);
+            for (var i = 0; i < rawLength; ++i) {
+                uInt8Array[i] = raw.charCodeAt(i);
+            }
+            return new Blob([uInt8Array], {
+                type: contentType
+            });
+        }
+        saveButton.addEventListener("click", function (event) {
+            if (signaturePad.isEmpty()) {
+                alert("Please provide a signature first.");
+            }
+            else {
+                var dataURL = signaturePad.toDataURL();
+                $.ajax({
+                    url: 'http://localhost:8080/userhomepage'
+                    , type: "POST"
+                    , dataType: "json"
+                    , data: obj = {
+                        "url": dataURL
+                    , }
+                    , success: function (data) {
+                        console.log("success!");
+                    }
+                    , complete: function (data) {
+                        console.log("complete!");
+                        window.location.assign('http://localhost:8080/userhomepage');
+                    }
+                });
+            }
+        });
+        cancelButton.addEventListener('click', function (event) {
+            signaturePad.clear();
+        });
+    </script>
+</body>

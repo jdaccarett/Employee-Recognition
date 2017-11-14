@@ -11,6 +11,7 @@ var users = require('./routes/users');
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
+var signature_pad = require('signature_pad');
 
 
 // Authentication Packages

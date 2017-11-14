@@ -13,11 +13,7 @@ const saltRounds = 10;
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
-
 var PDFLatex = require('pdflatex');
-
-
-
 
 //*******************************************************//
 //                  HOME (GET)                     //
@@ -69,69 +65,78 @@ router.post('/register', function(req, res, next) { // Here we add our user to o
   // If no Errors store uploaded Image and add user info to Mysql
   else {
     //Variables from Registration Form
-    //Check image upload if fails
-    if (!req.files){
-        return res.status(400).send('No files were uploaded.');
-    }
-    var file = req.files.signature;
-    var img_name=file.name;
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
     const Region = req.body.Region;
-    const img = req.files.signature;
+    // const img = req.files.signature;
     const db = require('../db.js');
 
     // Hash password entry before inserting into database
     bcrypt.hash(password, saltRounds, function(err, hash){
-          //check the uploaded image is the right format.
-          if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ){
-            //move the upload image to upload_images folder and save the directory which will be saved by storing in the users DB.
-             file.mv('public/images/upload_images/'+file.name, function(error) {
-                  if (error){
-                    return res.status(500).send(error);
+          //Insert Into User Table (Registration Form).
+          db.pool.query('INSERT INTO user (name, Region, email, password) VALUES (?,?,?,?)', [name, Region, email, hash], function(error, results, fields){
+              //if error throw alert us
+              if(error){
+                console.log(`errors: ${JSON.stringify(errors)}`);
+                res.render('homeMain', {errors: errors});
+              }
+              //Insert Into User Table (Registration Form).
+              db.pool.query("SELECT user_id from user WHERE email = ?", [email] , function(error, results, fields){
+                  //if error throw alert us
+                  if(error) {
+                    console.log(`errors: ${JSON.stringify(error)}`);
                   }
-
-                  //Insert Into User Table (Registration Form).
-                  db.pool.query('INSERT INTO user (name, Region, email, password, img) VALUES (?,?,?,?,?)', [name, Region, email, hash, img_name], function(error, results, fields){
-                      //if error throw alert us
-                      if(error){
-                        console.log(`errors: ${JSON.stringify(errors)}`);
-                        res.render('homeMain', {errors: errors});
-                      }
-                      //Insert Into User Table (Registration Form).
-                      db.pool.query("SELECT user_id from user WHERE email = ?", [email] , function(error, results, fields){
-                          //if error throw alert us
-                          if(error) {
-                            console.log(`errors: ${JSON.stringify(error)}`);
-                          }
-
-                          else {
-                            const user_id = results[0];
-                            console.log(results[0]);
-
-                            req.login(user_id, function(error){
-                              console.log(error)
-                              //res.render('homeMain', { title: 'Registration Complete' });
-                            });
-                            //if data inserted succesfuly return us to Registrationpage.
-                            res.render('homeMain', { title: 'Registration Complete' });
-                          }
-                      });
-                   });
+                  else {
+                    const user_id = results[0];
+                    req.login(user_id, function(error){
+                      console.log(error)
+                    });
+                    //if data inserted succesfuly return us to Registrationpage.
+                    res.render('signature', { title: 'Success: Signature', userId: user_id });
+                  }
               });
-          }
-      });
-    }
+          });
+    });
+  }
 });
 
+
+//*******************************************************//
+//                  Signature (POST/GET)                  //
+//*******************************************************//
+/* GET */
+router.get('/signature', function(req, res, next) {
+
+  res.render('signature', { title: 'Success: Signature' });
+});
 //*******************************************************//
 //                  Homepage (POST/GET)                  //
 //*******************************************************//
 /* GET */
 router.get('/userhomepage', function(req, res, next) {
-
   res.render('userhomepage', { title: 'Homepage' });
+});
+
+/* POST */
+router.post('/userhomepage', function(req, res){
+  // Declare variables
+  var userId = req.user.user_id;
+  var img = req.body.url;
+  const db = require('../db.js');
+
+  //Insert Img data to db with current registered user.
+  db.pool.query('UPDATE user SET img = ? WHERE user_id = ?', [img, userId], function(error, results, fields){
+      //if error throw alert us
+      if(error){
+        console.log(console.error);
+        res.render('homeMain', error);
+      }
+      else {
+        console.log("Added Signature");
+        res.render('userhomepage', { title: 'Added signature'});
+      }
+   });
 });
 
 //*******************************************************//
@@ -173,8 +178,15 @@ router.post('/createAward', function(req, res, next) {
         if(error) {throw error;}
         else {
           const Region = JSON.stringify(results[0].Region).replace(/['"]+/g, '');
+          // Grabs Image BLOB return from mysql & saves it to upload_images directory as png.
           var image = JSON.stringify(results[0].img);
-
+          image = image.replace(/['"]+/g, '')
+          image = image.split(",").pop();
+          // write image to upload_images path.
+          require("fs").writeFile('public/images/upload_images/signature.png', image, 'base64', function(err) {
+            console.log(err);
+          });
+          // Once user inputs username & email create award in database.
           db.pool.query('INSERT INTO `awards`(`award_type`, `employee_name`, `employee_email`, `creator_id`) VALUES (?,?,?,?)',
           [award_type, employee_name, employee_email, creator_id], function(error, results, fields){
               //if error throw alert us
@@ -182,25 +194,14 @@ router.post('/createAward', function(req, res, next) {
               else {
                   var award_path = results.insertId+ '.pdf'
                   //variables for award
-                  image = image.slice(0, image.lastIndexOf('.') - image.length).replace(/['"]+/g, '');
-                  var award = "\\documentclass{letter}\n\\usepackage{graphicx}\n\\graphicspath{{/Users/juandaccarett/Desktop/Last_Semester/Capstone_Project/emp/public/images/upload_images/}}\n\\signature{"+employee_name+"}\n\\begin{document}\n\\begin{letter}{Eridanus:Web3 \\ Portland\\ Oregon\\ United States}\n\\opening{Dear Sir or Madam:}\n\nCongratulations! You have been selected as the ‘Month of the Employee.\n\n% Main text\n\\closing{.}\n\\encl{Region "+Region+"}\n\\fromsig{\\includegraphics[scale=0.4]{"+image+"}}\n\n\\end{letter}\n\\end{document}\n";
+                  //var award = "\\documentclass{letter}\n\\usepackage{graphicx}\n\\graphicspath{{/app/public/images/upload_images/}}\n\\signature{"+employee_name+"}\n\\begin{document}\n\\begin{letter}{Eridanus:Web3 \\ Portland\\ Oregon\\ United States}\n\\opening{Dear Sir or Madam:}\n\nCongratulations! You have been selected as the ‘Month of the Employee.\n\n% Main text\n\\closing{.}\n\\encl{Region "+Region+"}\n\\fromsig{\\includegraphics[scale=0.4]{signature}}\n\n\\end{letter}\n\\end{document}\n";
+                  var award = "\\documentclass{letter}\n\\usepackage{graphicx}\n\\graphicspath{{/Users/juandaccarett/Desktop/Last_Semester/Capstone_Project/emp/public/images/upload_images/}}\n\\signature{"+employee_name+"}\n\\begin{document}\n\\begin{letter}{Eridanus:Web3 \\ Portland\\ Oregon\\ United States}\n\\opening{Dear Sir or Madam:}\n\nCongratulations! You have been selected as the ‘Month of the Employee.\n\n% Main text\n\\closing{.}\n\\encl{Region "+Region+"}\n\\fromsig{\\includegraphics[scale=0.4]{signature}}\n\n\\end{letter}\n\\end{document}\n";
                   // Creates award and saves them to awardsCreated folder with the name of the award_id
-                  fs.writeFile('latex.tex', award, function(err) {
-                      if(err) {
-                        return console.log(err);
-                      }
-                      console.log("The file was saved!");
-                  });
-                  const input = createReadStream('latex.tex');
-                  const output = createWriteStream("public/awardsCreated/"+award_path);
-                  latex(input).pipe(output)
-                  console.log("PDF created!");
-
-                  // latexToPdf('latex.tex', award, award_path);
+                  latexToPdf('latex.tex', award, award_path);
                   res.render('sendAward', { title: "Review Award" ,awardPath: 'awardsCreated/'+award_path, email: employee_email});
-
               }
           });
+
        }
     });
    }
@@ -211,33 +212,28 @@ router.post('/createAward', function(req, res, next) {
  //*******************************************************//
  /* GET */
  router.get('/sendAward', function(req, res, next) {
-
   console.log("GET CALL");
   res.render('sendAward');
-  // select employee_name, award_type from awards where `creator_id` = 32;
-
  });
-
  /* POST */
  router.post('/sendAward', function(req, res, next) {
-
    console.log("POST CALL");
    nodemailer.createTestAccount((err, account) => {
          // create reusable transporter object using the default SMTP transport
          var transporter = nodemailer.createTransport(smtpTransport({
              service: 'gmail',
              auth: {
-               user: 'jdaccarett101@gmail.com',
-               pass: 'Weeman91!'
+               user: 'employeerecogproject@gmail.com',
+               pass: 'Testing91!'
              }
          }));
          // setup email data with unicode symbols
          let mailOptions = {
-         from: '"Juan Daccarett 👻" <jdaccarett101@gmail.com>', // sender address
+         from: '"Employee Recognition 👻" <employeerecogproject@gmail.com>', // sender address
          to: req.body.email, // list of receivers
          subject: 'Hello ✔', // Subject line
-         text: 'Hello world?', // plain text body
-         html: '<b>Hello world?</b>', // html body
+         text: 'Thank you', // plain text body
+         html: '<b>Recognizing Exellence</b>', // html body
            attachments: [{
                filename: 'Employee Award',
                path: 'public/'+req.body.path,
@@ -258,7 +254,7 @@ router.post('/createAward', function(req, res, next) {
              }
          });
    });
- });
+});
 
  //*******************************************************//
  //                  View Awards(POST/GET)               //
@@ -270,7 +266,7 @@ router.post('/createAward', function(req, res, next) {
   const user_id = req.user.user_id;
   const db = require('../db.js');
 
-  db.pool.query("SELECT employee_name, award_type FROM awards WHERE creator_id = ?", [user_id], function(errors, results, fields){
+  db.pool.query("SELECT award_id, employee_name, award_type FROM awards WHERE creator_id = ?", [user_id], function(errors, results, fields){
       //if error throw alert us
       if (errors) {
         res.render('viewAwards', {title: "ERROR | Delete Awards"});
@@ -286,12 +282,19 @@ router.post('/createAward', function(req, res, next) {
  /* GET */
  router.post('/viewAwards', function(req, res, next) {
 
-  console.log("POST CALL");
-  res.render('viewAwards');
-  // select employee_name, award_type from awards where `creator_id` = 32;
+    console.log("POST CALL");
+    const db = require('../db.js');
 
+    db.pool.query("DELETE FROM awards WHERE award_id = ?", [req.body.award_id], function(errors, results, fields){
+        //if error throw alert us
+        if (errors) {
+           return console.log("COULD NOT DELETE");
+        }
+        else {
+          console.log("SUCCESS DELETING");
+        }
+    });
  });
-
 
 //to store user id in session
 passport.serializeUser(function(user_id, done) {
@@ -306,17 +309,17 @@ passport.deserializeUser(function(user_id, done) {
 //                  Functions                            //
 //*******************************************************//
 //(Latex to Pdf document.)
-// function latexToPdf(inputFilename, latexstring, outputFilename){
-//     fs.writeFile(inputFilename, latexstring, function(err) {
-//         if(err) {
-//           return console.log(err);
-//         }
-//         console.log("The file was saved!");
-//     });
-//     const input = createReadStream(inputFilename);
-//     const output = createWriteStream("public/awardsCreated/"+outputFilename);
-//     latex(input).pipe(output)
-//     console.log("PDF created!");
-// }
+function latexToPdf(inputFilename, latexstring, outputFilename){
+    fs.writeFile(inputFilename, latexstring, function(err) {
+        if(err) {
+          return console.log(err);
+        }
+        console.log("The file was saved!");
+    });
+    const input = createReadStream(inputFilename);
+    const output = createWriteStream("public/awardsCreated/"+outputFilename);
+    latex(input).pipe(output)
+    console.log("PDF created!");
+}
 
 module.exports = router;

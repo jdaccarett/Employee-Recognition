@@ -1,28 +1,26 @@
-      <!DOCTYPE html>
-      <html>
+{{> header }}
 
-      <head>
-          <meta charset="UTF-8">
-          <title>title</title>
-          <link rel="stylesheet" href="css/homepage.css">
+<body>
+    <div class="containerHome"> {{> navbar }}
+        <div class="title">
+            <h4>{{title}}</h4>
+            <h6>createAward</h6> </div>
+        <!--LOGIN-->
+        <div id="createAward">
+            <form method="post" id='uploadForm' encType="multipart/form-data">
+                <p class="error">{{errors.[0].msg}}</p>
+                <p>Name of winner
+                    <input name="name" type="text" id="winnerName">
+                </p>
+                <p>Send Award to this Email
+                    <input name="email" type="text" id="winnerEmail">
+                </p>
+                <button class="loginbtn" type="submit" id="submit">Create</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+</script>
 
-      <body>
-          <div class="title">
-              <h4>{{title}}</h4>
-              <h6>createAward</h6> </div>
-          <div class="mainCont">
-              <!--LOGIN-->
-              <div id="createAward">
-                  <form method="post" id='uploadForm' encType="multipart/form-data">
-                      <p class="error">{{errors.[0].msg}}</p>
-                      <p>Name of winner
-                        <input name="name" type="text" id="winnerName"></p>
-                      <p>Send Award to this Email
-                        <input name="email" type="text" id="winnerEmail"></p>
-
-                      <button class="loginbtn" type="submit" id="submit">Create</button>
-                  </form>
-              </div>
-           </div>
-      </body>
-      </html>
+</html>

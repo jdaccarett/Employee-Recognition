@@ -1,12 +1,34 @@
-  {{> header }}
 <body>
-  <!--TEMP FORM-->
-  <div class="containerHome">
-      <h1 class="homeTitle">{{title}}</h1>
-
-      <div class="userActions">
-        <button class="createAward"  onclick="window.location.href='/createAward'" type="button" name="button">Create Award</button>
-        <button class="editAward"  onclick="window.location.href='/viewAwards'" type="button" name="button">View Awards</button>
-      </div>
-  </div>
+    <!--TEMP FORM-->
+    <div class="containerHome"> {{> navbar }}
+        <h1 class="homeTitle">{{title}}</h1>
+        <div class="features">
+            <ul>
+                <li class="CreateAward">
+                    <div class="FeatContainer">
+                        <div style="background-color: darkgrey;" class="imgdiv"><img src="" alt=""></div>
+                        <a href="/viewAwards">
+                            <h2>View Awards</h2>
+                            <h6>Edit and view your awards</h6> </a>
+                    </div>
+                </li>
+                <li class="ViewAward">
+                    <div class="FeatContainer">
+                        <div class="imgdiv" style="background-color: mediumturquoise;"><img src="" alt=""></div>
+                        <a href="/createAward">
+                            <h2>Create Award</h2>
+                            <h6>Edit and create your awards</h6> </a>
+                    </div>
+                </li>
+                <li class="ViewAward">
+                    <div class="FeatContainer">
+                        <div class="imgdiv" style="background-color: orange;"><img src="" alt=""></div>
+                        <a href="/signature">
+                            <h2>Update Signature</h2>
+                            <h6>Redo your Signature</h6> </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>

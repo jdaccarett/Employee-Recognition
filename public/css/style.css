@@ -1,389 +1,488 @@
-body{
+body {
     margin: 0px;
     padding: 0px;
-    font-family: sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
-html{
-  padding: 0px;
-  margin: 0px;
+html {
+    padding: 0px;
+    margin: 0px;
 }
 
-/* HOME PAGE START */
-.container-fluid{
-    background-image: url(../images/bkg.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-    width: 100vw;
-}
 
-.navicons {
-    position: absolute;
-    width: inherit;
+/*USER HOMPEPAGE*/
+
+.containerHome {
+    overflow: scroll;
     height: 100%;
-}
-
-.navicons img {
-    position: relative;
-    width: 80%;
-    display: block;
-}
-
-.navicons button {
-    right: 14px;
-    position: absolute;
-    border-style: none;
-    height: 60px;
-    width: 40%;
-    background-color: mediumturquoise;
-    color: whitesmoke;
-    font-family: sans-serif;
-    font-weight: 300;
-    letter-spacing: 3px;
-    -webkit-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-    box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-}
-
-.container {
     width: 100%;
-    margin-top: 3%;
-}
-
-.col3 {
-    display: inline-block;
-    width: 24%;
-    height: 70px;
-}
-
-.main {
-    height: 30%;
-}
-
-.cta {
-    margin: 0 auto;
-    text-align: center;
-    background: #667db6;
+    position: absolute;
+    background: #11998e;
     /* fallback for old browsers */
-    background: -webkit-linear-gradient(left, #667db6, #0082c8, #0082c8, #667db6);
-    background: -o-linear-gradient(left, #667db6, #0082c8, #0082c8, #667db6);
-    background: linear-gradient(to right, #667db6, #0082c8, #0082c8, #667db6);
+    background: -webkit-linear-gradient(left, #38ef7d, #11998e);
+    background: -o-linear-gradient(left, #38ef7d, #11998e);
+    background: linear-gradient(to right, #38ef7d, #11998e);
     /* Chrome 10-25, Safari 5.1-6 */
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    height: 100%;
-    width: 50%;
-    max-width: 700px;
-    border-radius: 7px;
-    -webkit-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-    box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
 }
 
-.cta h3 {
-    padding-top: 10%;
-    color: whitesmoke;
-    font-family: sans-serif;
-    letter-spacing: 2px;
-    font-weight: 200;
-    font-size: 3rem;
-}
-
-.cta h5 {
-    margin-top: 5%;
-    color: whitesmoke;
-    font-family: sans-serif;
-    letter-spacing: 2px;
+.homeTitle {
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 15%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2.5rem;
     font-weight: 100;
-    font-size: 14px;
+    text-align: center;
 }
 
-.cta button {
-    margin-top: 10%;
-    border-style: none;
-    height: 60px;
+
+/* VIEW AWARDS SECTION START */
+
+.Employee_list {
     width: 40%;
-    background-color: mediumpurple;
-    color: whitesmoke;
-    font-family: sans-serif;
-    font-weight: 300;
-    letter-spacing: 3px;
+    right: 0;
+    left: 0;
+    margin: 10% auto;
+    position: absolute;
+    list-style: none;
+}
+
+.Employee {
+    margin-bottom: 5%;
+    width: 100%;
     -webkit-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
     box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-}
-/* HOME PAGE ENDS */
-
-
-/*MAIN CONTAINER*/
-.container1{
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-}
-
-/*START LEFT CONTAINER AND ITS CONTENTS*/
-.leftcontainer{
-    display: inline-block;
-    background: #5C258D;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(left, #4389A2, #5C258D);
-    background: -o-linear-gradient(left, #4389A2, #5C258D);
-    background: linear-gradient(to right, #4389A2, #5C258D);  /* Chrome 10-25, Safari 5.1-6 */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    position: absolute;
-    height: 100vh;
-    width: 30%;
-    float: left;
-    z-index: 999;
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
-    -webkit-box-shadow: 2px 2px 29px 1px rgba(128,124,128,1);
-    -moz-box-shadow: 2px 2px 29px 1px rgba(128,124,128,1);
-    box-shadow: 2px 2px 29px 1px rgba(128,124,128,1);
-}
-
-#logo{
-    width: 100%;
-    height: 30%;
-    text-align: center;
-}
-
-#logoimg{
-    padding-top: 10%;
-    max-height: 60%;
-}
-
-#heading{
-    width: 100%;
-    color: whitesmoke;
+    min-width: 400px;
+    border-radius: 3px;
+    font-size: 15px;
+    height: 50px;
+    background: whitesmoke;
     font-family: sans-serif;
+    font-weight: 400;
 }
 
-#line{
+.info {
+    padding-top: 15px;
     margin-left: 10%;
-    margin-right: 50%;
-    height: 5px;
-    background-color: aqua;
+    float: left;
 }
 
-#heading h2{
-    padding-left: 10%;
-    font-weight: 500;
-    font-size: 1.8rem;
-    letter-spacing: .06em;
-}
-
-#heading h5{
-    padding-left: 10%;
-    font-weight: 300;
-    letter-spacing: .06em;
-}
-
-#steps{
-    margin-top: 10%;
-    list-style: none;
-    padding-left: 10%;
-    color: whitesmoke;
-    font-family: sans-serif;
-    font-weight: 300;
-    letter-spacing: .06em;
-    font-size: .8rem;
-    text-align: center;
-}
-
-#steps li{
-  display: inline-block;
-  margin-right: 15%;
-}
-
-.error{
-  color: mediumpurple;
-}
-
-/*END LEFT CONTAINER AND ITS CONTENTS*/
-
-
-/*START RIGHT CONTAINER*/
-
-.rightcontainer{
-    height: 100vh;
-    width: 70%;
+#deldiv {
+    padding: 0px;
+    margin: 0px;
     float: right;
-    z-index: 999;
+    height: 50px;
+    width: 10%;
 }
 
-/* FORM START*/
-.formdiv{
-    width: 50%;
-    margin: 10% auto;
+.delbtn {
+    background-color: darkgray;
+    color: lightgreen;
+    height: 100%;
+    width: 100%;
+    border-style: none;
+    font-weight: 400;
 }
 
-form{
-    width: 40%;
+
+/* VIEW AWARDS SECTION END */
+
+
+/* SIGNATURE START */
+
+.wrapper {
+    background-color: white;
     position: absolute;
-    font-family: sans-serif;
-    color: darkgray;
-    text-align: left;
-    font-weight: 300;
+    width: 400px;
+    height: 200px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.form-group{
-    padding-bottom: 5%;
+.signature-pad {
+    width: 400px;
+    height: 200px;
 }
 
 
-form input{
-    padding-bottom: 3%;
-    display: block;
-    border: transparent;
-    width: 80%;
-    border-bottom: solid lightgray 2px;
+/* SIGNATURE END */
+
+
+/* Navbar Start */
+
+.header {
+    padding-top: 10px;
+    max-width: 100%;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.formdiv form button{
-
-   margin: 0 25%;
-   height: 50px;
-   width: 30%;
-   border-radius: 40px;
-   border-style: none;
-   color: whitesmoke;
-   font-size: 1.1rem;
-   font-weight: 400;
-   background-color: mediumpurple;
-   -webkit-box-shadow: 2px 2px 29px 1px rgba(128,124,128,1);
-   -moz-box-shadow: 2px 2px 29px 1px rgba(128,124,128,1);
-   box-shadow: 2px 2px 29px 1px rgba(128,124,128,1);
+.header_navbar {
+    float: left;
+    width: 20%;
+    height: 100%;
+    margin-left: 1.5%;
 }
 
-h1{
+.header_navbar--logo a,
+img {
+    max-height: 60px;
+    margin: 10px auto;
+    height: 100%;
+}
+
+.header_navbar--navigation {
+    float: right;
+    width: 60%;
+    height: 100%;
+    line-height: 75px;
+}
+
+.header_navbar--navigation a,
+button {
+    color: whitesmoke;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 100;
+    letter-spacing: 2px;
+    display: inline-block;
+    margin-right: 10%;
+    padding: 0px 10px 0px 10px;
+}
+
+#logbtn {
     text-align: center;
-    font-weight: 300;
-    color: mediumpurple;
-    font-size: 3rem;
-}
-/*FORM AND RIGHT CONTAINER END*/
-
- /*ERROR POP UP*/
- .errors{
-  margin-top: 1.3%;
-  background: #5C258D;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(left, #4389A2, #5C258D);
-  background: -o-linear-gradient(left, #4389A2, #5C258D);
-  background: linear-gradient(to right, #4389A2, #5C258D);  /* Chrome 10-25, Safari 5.1-6 */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  color:#FFF;
-  position: absolute;
-  z-index: 999;
-  top: -20px;
-  left: 0%;
-  width: 30%;
-  height: inherit;
-  padding: 20px;
-  transition: top 300ms cubic-bezier(0.17, 0.04, 0.03, 0.94);
-  overflow: hidden;
-  box-sizing: border-box;
-  border-radius: 10px;
- }
- .errorDiv{
-  color: white;
-  padding-left: 3%;
-  padding-bottom: 8%;
+    line-height: 50px;
+    width: 80px;
+    border-radius: 5px;
+    background-color: darkturquoise;
+    -webkit-box-shadow: -1px 0px 50px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px 0px 50px -8px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 0px 50px -8px rgba(0, 0, 0, 0.75);
+    border-style: none;
 }
 
-.register p{
-  margin-top: 10%;
-  text-align: left;
+
+/* Navbar End */
+
+
+/* USERHOMEPAGE -- MODULES*/
+
+.features {
+    margin: 15% auto;
+    width: 80%;
 }
 
-.register p a{
-  text-decoration: none;
-}
-/*USER HOMPEPAGE*/
-.containerHome{
-  margin: 0px;
-  padding: 0px;
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  background: #5C258D;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #4389A2, #5C258D);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #4389A2, #5C258D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+.features li {
+    list-style: none;
+    margin: 2% auto;
+    width: 35%;
+    height: 130px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    -webkit-box-shadow: -1px 0px 50px -8px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px 0px 50px -8px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px 0px 50px -8px rgba(0, 0, 0, 0.75);
 }
 
-.homeTitle{
-  color: whitesmoke;
-  font-weight: lighter;
-  position: absolute;
-  height: 25%;
-  width:50%;
-  right: 0;
-  left: 0;
-  margin: 5% auto;
+.FeatContainer {
+    height: 100%;
+    width: 100%;
 }
 
-.userActions{
-  position: absolute;
-  height: 25%;
-  width:50%;
-  right: 0;
-  left: 0;
-  margin: 20% auto;
+.FeatContainer .imgdiv {
+    width: 35%;
+    float: left;
+    height: 100%;
+    text-align: center;
 }
 
-.createAward{
-  background-color: dodgerblue;
-  float: left;
-}
-.editAward{
-  background-color: mediumturquoise;
-  float: right;
+.FeatContainer img {
+    margin-top: 25%;
 }
 
-.userActions button{
-  cursor:pointer;
-  color: whitesmoke;
-  font-family: sans-serif;
-  font-size: 1.3rem;
-  font-weight: lighter;
-  border-style: none;
-  border-radius: 20px;
-  -webkit-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-  box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-  display: inline-block;
-  height: 100%;
-  width: 45%;
-}
-/* VIEW AWARDS */
-.Employee_list{
-  width: 40%;
-  right: 0;
-  left: 0;
-  margin: 20% auto;
-  position: absolute;
-  list-style: none;
+.FeatContainer a {
+    text-decoration: none;
+    text-transform: none;
+    color: black;
+    cursor: pointer;
+    background-color: transparent;
+    border-style: none;
+    width: 65%;
+    float: right;
+    height: 100%;
 }
 
-.Employee_list li{
-  text-align: center;
-  margin-bottom: 5%;
-  display: inline-block;
-  width: 100%;
-  -webkit-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
-  box-shadow: -2px -1px 19px -5px rgba(0, 0, 0, 0.75);
+.FeatContainer a h2 {
+    text-align: left;
+    font-size: 12px;
+    margin-left: 10%;
+    font-weight: 400;
+    letter-spacing: 3px;
 }
 
-.Employee{
-  border-radius: 3px;
-  font-size: 15px;
-  padding-top: 15px;
-  height: 50px;
-  background: whitesmoke;
-  font-family: sans-serif;
-  font-weight: 400;
-  background: #06beb6;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #48b1bf, #06beb6);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #48b1bf, #06beb6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.FeatContainer a h6 {
+    font-size: 10px;
+    margin-top: 10%;
+    text-align: left;
+    margin-left: 10%;
+    font-weight: 400;
+}
 
+
+/* HEADER TITLE */
+
+.title {
+    position: absolute;
+    z-index: 1;
+    background-color: transparent;
+    left: 50%;
+    top: 25%;
+    height: 20%;
+    width: 60%;
+    transform: translate(-50%, -50%);
+}
+
+.title h4 {
+    margin: 0px 0px 10px 0px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.title h6 {
+    margin: 0px;
+    color: white;
+    font-size: 2rem;
+    font-weight: 400;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+
+/* LOGIN FORM */
+
+#login {
+    background-color: darkturquoise;
+    border-radius: 5px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    height: 350px;
+    width: 400px;
+    transform: translate(-50%, -50%);
+    -webkit-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    -webkit-transition: all 1.4s ease;
+    -moz-transition: all 1.4s ease;
+    -o-transition: all 1.4s ease;
+    -ms-transition: all 1.4s ease;
+    transition: all 1.4s ease;
+    margin-left: 0%;
+}
+
+#login form {
+    padding: 17px;
+}
+
+#login form input {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    height: 30px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+#login form p {
+    color: white;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+#login form .error {
+    color: red;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+#login form button {
+    border-style: none;
+    width: 60%;
+    height: 50px;
+    border-radius: 30px;
+    background-color: palevioletred;
+    color: white;
+    font-size: 1rem;
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* REGISTER FORM*/
+
+#register {
+    background-color: #63737A;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    width: 400px;
+    transform: translate(-50%, -50%);
+    -webkit-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    -webkit-transition: all 1.4s ease;
+    -moz-transition: all 1.4s ease;
+    -o-transition: all 1.4s ease;
+    -ms-transition: all 1.4s ease;
+    transition: all 1.4s ease;
+    margin-top: 100%;
+}
+
+#register form {
+    padding: 10px;
+}
+
+#register form input {
+    width: 90%;
+    height: 30px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+#register form p {
+    color: white;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+#register form button {
+    border-style: none;
+    width: 60%;
+    height: 50px;
+    border-radius: 30px;
+    background-color: palevioletred;
+    color: white;
+    font-size: 1rem;
+    display: block;
+    margin: 0 auto;
+}
+
+#register form .error {
+    color: white;
+    font-family: sans-serif;
+    font-weight: 100;
+    font-size: 12px;
+}
+
+
+/*createAward*/
+
+#createAward {
+    background-color: turquoise;
+    border-radius: 5px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    height: 45%;
+    width: 400px;
+    transform: translate(-50%, -50%);
+    -webkit-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+}
+
+#createAward form {
+    padding: 17px;
+}
+
+#createAward form input {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 90%;
+    height: 30px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+#createAward form p {
+    color: white;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+#createAward form .error {
+    color: red;
+    font-family: sans-serif;
+    font-weight: 100;
+}
+
+#createAward form button {
+    border-style: none;
+    width: 60%;
+    height: 50px;
+    border-radius: 30px;
+    background-color: palevioletred;
+    color: white;
+    font-size: 1rem;
+    display: block;
+    margin: 0 auto;
+}
+
+#register canvas {
+    background-color: white;
+    width: 100%;
+}
+
+
+/*SendAward*/
+
+#sendAward {
+    border-radius: 5px;
+    position: relative;
+    left: 50%;
+    top: 45%;
+    height: 60%;
+    width: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px -1px 39px -5px rgba(0, 0, 0, 0.75);
+}
+
+#sendAward embed {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+#sendAward button {
+    border-style: none;
+    width: 60%;
+    height: 50px;
+    border-radius: 30px;
+    background-color: palevioletred;
+    color: white;
+    font-size: 1rem;
+    display: block;
+    margin: 0 auto;
 }
