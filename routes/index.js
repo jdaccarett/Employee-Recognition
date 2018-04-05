@@ -224,7 +224,7 @@ router.post('/createAward', function(req, res, next) {
              service: 'gmail',
              auth: {
                user: 'employeerecogproject@gmail.com',
-               pass: 'Testing91!'
+               pass: 'Testing92!'
              }
          }));
          // setup email data with unicode symbols
